@@ -118,6 +118,76 @@ function playSound_chill() {
     soundAlertChill.play();
 }
 
+
+// Получаем элементы
+const settingsModal = document.getElementById("settingsModal");
+const settingsButton = document.getElementById("settingsButton");
+const span = document.getElementsByClassName("close")[0];
+const applySettingsButton = document.getElementById("applySettings");
+
+// Открываем модальное окно при клике на кнопку
+settingsButton.onclick = function() {
+    settingsModal.style.display = "block";
+}
+
+// Закрываем модальное окно при клике на (x)
+span.onclick = function() {
+    settingsModal.style.display = "none";
+}
+
+// Закрываем модальное окно при клике вне его
+window.onclick = function(event) {
+    if (event.target == settingsModal) {
+        settingsModal.style.display = "none";
+    }
+}
+document.getElementById("workDuration").addEventListener("input", validateInput);
+document.getElementById("chillDuration").addEventListener("input", validateInput);
+document.getElementById("longChillDuration").addEventListener("input", validateInput);
+
+function validateInput() {
+    const workDuration = parseInt(document.getElementById("workDuration").value, 10);
+    const chillDuration = parseInt(document.getElementById("chillDuration").value, 10);
+    const longChillDuration = parseInt(document.getElementById("longChillDuration").value, 10);
+
+    // Проверяем, что все значения положительные и больше нуля
+    if (workDuration > 0 && chillDuration > 0 && longChillDuration > 0) {
+        // Если все проверки пройдены, кнопка "Apply" становится активной
+        document.getElementById("applySettings").disabled = false;
+    } else {
+        // Иначе кнопка остается неактивной
+        document.getElementById("applySettings").disabled = true;
+    }
+}
+
+// Инициализируем валидацию, чтобы сразу применить состояние кнопки "Apply"
+validateInput();
+
+applySettingsButton.onclick = function() {
+    const workDurationInput = parseInt(document.getElementById("workDuration").value, 10) * 60;
+    const chillDurationInput = parseInt(document.getElementById("chillDuration").value, 10) * 60;
+    const longChillDurationInput = parseInt(document.getElementById("longChillDuration").value, 10) * 60;
+
+    // Проверяем, что все введенные значения положительны и больше нуля
+    if (workDurationInput > 0 && chillDurationInput > 0 && longChillDurationInput > 0) {
+        // Обновляем длительности только если все проверки пройдены
+        durations['Work'] = workDurationInput;
+        durations['Chill'] = chillDurationInput;
+        durations['Long Chill'] = longChillDurationInput;
+
+        // Сброс или корректировка оставшегося времени текущей сессии
+        remainingSeconds = durations[stage];
+        updateTimerDisplay(); // Обновляем отображение таймера
+        settingsModal.style.display = "none"; // Скрываем модальное окно
+    } else {
+       
+        alert("Please enter positive numbers greater than zero for all durations.");
+    }
+}
+
+
+
+
 function updateDisplay() {
   stageDisplay.textContent = stage;
   cycleCountDisplay.textContent = `Cycles: ${cycleCount}`;

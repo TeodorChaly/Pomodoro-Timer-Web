@@ -4,22 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pomodoro Timer</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        padding: 20px;
-      }
-      #timer {
-        font-size: 48px;
-        margin: 20px;
-      }
-      .button {
-        font-size: 20px;
-        padding: 10px;
-        margin: 10px;
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
     <h1>Pomodoro Timer</h1>
@@ -29,6 +14,29 @@
     <!-- <button class="button" id="nextButton">Next</button> -->
     <button class="button" id="restartButton">Restart</button>
     <button class="button" id="actionButton">Start</button>
+    <!-- Кнопка настроек -->
+    
+    <button class="button" id="settingsButton">Settings</button>
+
+    <!-- Модальное окно настроек -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="settingsForm">
+                <label for="workDuration">Work Duration (sec):</label>
+                <input type="number" id="workDuration" name="workDuration" value="5"><br><br>
+
+                <label for="chillDuration">Chill Duration (sec):</label>
+                <input type="number" id="chillDuration" name="chillDuration" value="3"><br><br>
+
+                <label for="longChillDuration">Long Chill Duration (sec):</label>
+                <input type="number" id="longChillDuration" name="longChillDuration" value="10"><br><br>
+
+                <input type="button" value="Apply" id="applySettings">
+            </form>
+        </div>
+    </div>
+
     <script src="script.js"></script>
   </body>
 </html>
