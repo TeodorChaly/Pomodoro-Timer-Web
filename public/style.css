@@ -16,6 +16,7 @@ body {
     padding: 20px;
 }
 
+
 #timer {
     font-size: 48px;
     margin: 20px;
@@ -48,26 +49,30 @@ body {
     text-decoration: none;
     cursor: pointer;
 }
-
 .e-c-base {
     fill: none;
-    stroke: #F7958E;
-    stroke-width: 4px;
+    stroke: #d44848;
+    stroke-width: 5px;
 }
+
 
 .e-c-progress {
     fill: none;
-    stroke: #5e5e5e;
-    stroke-width: 4px;
+    stroke: #686a85;
+    stroke-width: 5px;
     transition: stroke-dashoffset 0.7s;
+
 }
 
 .e-c-pointer {
-    fill: #F7958E;
-    stroke: #F7958E;
-    stroke-width: 2px;
+    fill: #d44848;
+    stroke: #d44848;
+    stroke-width: 3px;
+    filter: url(#glow);
+
 }
 
 #e-pointer {
     transition: transform 0.7s;
 }
+

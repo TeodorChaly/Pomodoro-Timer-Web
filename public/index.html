@@ -17,11 +17,21 @@
             <g transform="rotate(-90)">
                <circle r="100" class="e-c-progress"/>
                <g id="e-pointer">
-                  <circle cx="100" cy="0" r="8" class="e-c-pointer"/>
+                  <circle cx="100" cy="0" r="8" class="e-c-pointer" filter="url(#glow)"/> 
                </g>
             </g>
          </g>
+         <defs>
+             <filter id="glow" x="-110%" y="-110%" width="320%" height="320%"> 
+                 <feGaussianBlur stdDeviation="1" result="coloredBlur"/>
+                 <feMerge>
+                     <feMergeNode in="coloredBlur"/>
+                     <feMergeNode in="SourceGraphic"/>
+                 </feMerge>
+             </filter>
+         </defs>
       </svg>
+
     </div>
     
     <div id="stageDisplay">Work</div>
