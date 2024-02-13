@@ -68,7 +68,6 @@ body {
     fill: #d44848;
     stroke: #d44848;
     stroke-width: 3px;
-    filter: url(#glow);
 
 }
 

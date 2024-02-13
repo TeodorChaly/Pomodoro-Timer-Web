@@ -27,33 +27,87 @@
   let pointer = document.getElementById('e-pointer');
   let length = Math.PI * 2 * 100;
 
-document.getElementById("progressColor").addEventListener("input", function() {
-    var newColor = this.value;
-    updateProgressColor(newColor); 
-    localStorage.setItem("progressColor", newColor); 
-});
-
-
-function updateProgressColor(color) {
-    var baseElements = document.querySelectorAll('.e-c-base');
-    baseElements.forEach(function(elem) {
-        elem.style.stroke = color;
-    });
-
-    var pointerElements = document.querySelectorAll('.e-c-pointer');
-    pointerElements.forEach(function(elem) {
-        elem.style.stroke = color; 
-        elem.style.fill = color; 
-    });
-}
-
-
   progressBar.style.strokeDasharray = length;
+
+  function addNewTaskForm() {
+      // Создаем элементы формы
+      const form = document.createElement('div');
+      const input = document.createElement('input');
+      const startButton = document.createElement('button');
+
+      // Настраиваем элементы
+      input.setAttribute('type', 'text');
+      input.setAttribute('placeholder', 'Введите название задания');
+      startButton.textContent = 'Начать задание';
+      startButton.disabled = true; // кнопка неактивна пока поле ввода пустое
+
+      // Добавляем элементы в форму
+      form.appendChild(input);
+      form.appendChild(startButton);
+
+      // Добавляем форму на страницу
+      document.body.appendChild(form);
+
+      // Обработчик событий для поля ввода
+      input.addEventListener('input', function() {
+          startButton.disabled = !input.value.trim();
+      });
+
+      // Обработчик событий для кнопки начала задания
+      startButton.addEventListener('click', function() {
+        const taskNameDisplay = document.createElement('div');
+        taskNameDisplay.textContent = `Task: ${input.value.trim()}`;
+        // Добавляем элемент с названием задачи в форму
+        form.appendChild(taskNameDisplay);
+          // Создаем кнопки завершения задания
+          const completeButton = document.createElement('button');
+          const notCompleteButton = document.createElement('button');
+
+          // Настраиваем кнопки
+          completeButton.textContent = 'complete';
+          notCompleteButton.textContent = 'not complete';
+
+          // Добавляем кнопки на страницу
+          form.appendChild(completeButton);
+          form.appendChild(notCompleteButton);
+
+          // Скрываем ввод и кнопку начала задания
+          input.style.display = 'none';
+          startButton.style.display = 'none';
+
+          // Обработчик для кнопки "complete"
+          completeButton.addEventListener('click', function() {
+              displayCompletionMessage(form, input.value, true);
+          });
+
+          // Обработчик для кнопки "not complete"
+          notCompleteButton.addEventListener('click', function() {
+              displayCompletionMessage(form, input.value, false);
+          });
+      });
+  }
+
+  // Функция для отображения сообщения о завершении задания
+  function displayCompletionMessage(form, taskName, isCompleted) {
+      const message = document.createElement('div');
+      message.textContent = `${taskName} was ${isCompleted ? 'completed' : 'not completed'}.`;
+      // Очищаем форму и отображаем сообщение
+      form.innerHTML = '';
+      form.appendChild(message);
+  }
+
+  // Инициализация первой формы задания при загрузке страницы
+  document.addEventListener('DOMContentLoaded', function() {
+      addNewTaskForm();
+  });
+
+
 
   function updateCircle(value, timePercent) {
     var offset = -length * value / timePercent;
     progressBar.style.strokeDashoffset = offset;
     pointer.style.transform = `rotate(${360 * value / timePercent}deg)`;
+
   }
 
   function updateTimerDisplay() {
@@ -88,7 +142,32 @@ function updateProgressColor(color) {
       if (isTimerRunning) {
         startTimer();
       }
+      updateCircleColor(stage); 
     }
+
+
+  function updateCircleColor(stage) {
+    const progressCirclLine = document.querySelector('.e-c-base');
+    const progressCircle = document.querySelector('.e-c-pointer');
+
+    let color;
+    switch (stage) {
+      case "Work":
+        color = '#d44848'; // Красный
+        break;
+      case "Chill":
+        color = '#3498db'; // Синий
+        break;
+      case "Long Chill":
+        color = '#2c3e50'; // Темно-синий
+        break;
+      default:
+        color = '#d44848'; // Значение по умолчанию
+    }
+    progressCirclLine.style.stroke = color;
+    progressCircle.style.fill = color;
+    progressCircle.style.stroke = color;
+  }
 
   function startTimer() {
     clearInterval(timerInterval); 
