@@ -1,17 +1,23 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pomodoro Timer</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-  </head>
-  <body>
-    <h1>Pomodoro Timer</h1>
-    <div id="timer">00:00</div>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        
+    <h1 class="main-header">Pomodoro Timer:</h1>
+    
+    <h1 class="head_title" id="stageDisplay">Time to Work!</h1>
+    <h2 class="lapse" id="cycleCount">Cycles: 0</h2>
+    <div class="timer" id="timer">05:00</div>
 
     <div class="circle">
-      <svg width="300" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+      <svg class="img-cicle" width="430" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
          <g transform="translate(110,110)">
             <circle r="100" class="e-c-base"/>
             <g transform="rotate(-90)">
@@ -23,23 +29,24 @@
          </g>
       </svg>
     </div>
+
     
-    <div id="stageDisplay">Work</div>
-    <div id="cycleCount">Cycles: 0</div>
     
     <!-- <button class="button" id="nextButton">Next</button> -->
-    <button class="button" id="restartButton">Restart</button>
-    <button class="button" id="actionButton">Start</button>
-    <!-- Кнопка настроек -->
+    <button class="button-start" id="actionButton">START</button>
+    <div class="btn">
+        <button  class="button" id="restartButton"><img src="/img/restart.svg" alt=""></button>
+
+        <button class="button" id="settingsButton"><img src="/img/settings.svg" alt=""></button>
+    </div>
     
-    <button class="button" id="settingsButton">Settings</button>
 
     <!-- Модальное окно настроек -->
     <div id="settingsModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <form id="settingsForm">
-                <label for="workDuration">Work Duration (min):</label>
+            <form class="my-form" id="settingsForm">
+                <label cfor="workDuration">Work Duration (min):</label>
                 <input type="number" id="workDuration" name="workDuration" value="5"><br><br>
 
                 <label for="chillDuration">Chill Duration (min):</label>
@@ -56,7 +63,13 @@
             </form>
         </div>
     </div>
+    
 
-    <script src="script.js"></script>
-  </body>
+ 
+</div> 
+
+
+<script src="script.js"></script>
+
+</body>
 </html>
