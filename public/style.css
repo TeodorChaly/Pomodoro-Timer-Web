@@ -38,19 +38,13 @@ body {
      color: black;
 }
  #timer {
-     font-size: 88px;
+     font-size: 87px;
      margin: 0;
-    /* Remove the top margin */
      position: absolute;
-    /* Set position to absolute */
-     top: 45.5%;
-    /* Position it vertically at 50% of its containing element (the circle) */
+     top: 41%;
      left: 50%;
-    /* Position it horizontally at 50% of its containing element (the circle) */
      transform: translate(-50%, -50%);
-    /* Center it precisely using translate */
      z-index: 1;
-    /* Ensure it's above other elements in the SVG */
 }
 
  .button {
@@ -139,7 +133,7 @@ body {
 
      border-radius: 8px;
      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-     width: 400px;
+     width: auto;
      position: relative;
 }
  #settingsForm h2 {
@@ -172,7 +166,6 @@ body {
      font-size: 18px;
      color: #555;
 }
-/* Modal Styles */
  .modal {
      display: none;
      position: fixed;
@@ -209,7 +202,6 @@ body {
      text-decoration: none;
      cursor: pointer;
 }
-/* Form Styles */
  #settingsForm {
      text-align: center;
 }
@@ -223,16 +215,23 @@ body {
      margin-bottom: 20px;
      box-sizing: border-box;
 }
- #applySettings {
-     background-color: #4caf50;
-     color: white;
-     padding: 10px 15px;
-     border: none;
-     border-radius: 4px;
-     cursor: pointer;
+#applySettings:disabled {
+    background-color: #cccccc; 
+    color: #666666; 
+    cursor: not-allowed; 
 }
- #applySettings:hover {
-     background-color: #45a049;
+
+#applySettings {
+    background-color: #4caf50;
+    color: white; 
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; 
+}
+#applySettings:hover:not(:disabled) {
+    background-color: #45a049; 
 }
  .task-modal {
      color:#0056b3;
@@ -246,17 +245,17 @@ body {
 }
  .task-modal-input {
      width: 100%;
-     padding: 10px;
+     padding: 20px;
      box-sizing: border-box;
      border: 1px solid #ccc;
-     border-radius: 5px;
+     border-radius: 10px;
 }
  .task-modal-button {
      padding: 10px 20px;
      border-radius: 5px;
      background-color: #4CAF50;
      color: white;
-     border: none;
+     border: 10px;
      cursor: pointer;
      font-size: 16px;
 }
@@ -283,7 +282,7 @@ body {
          font-size: 34px;
     }
      #timer{
-        top: 40%;
-  font-size:28px;  
+        top: 39%;
+        font-size:85px;  
     }
 }
