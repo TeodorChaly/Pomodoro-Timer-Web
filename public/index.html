@@ -9,12 +9,13 @@
   </head>
   <body>
     <div class="container">
+      <!-- Basic text -->
       <h1 class="main-header">Pomodoro Timer:</h1>
-
       <h1 class="head_title" id="stageDisplay">Time to Work!</h1>
       <h2 class="lapse" id="cycleCount">Cycles: 0</h2>
       <div class="timer" id="timer">05:00</div>
 
+      <!-- Timer circle area -->
       <div class="circle">
         <svg
           class="img-cicle"
@@ -34,7 +35,7 @@
         </svg>
       </div>
 
-      <!-- <button class="button" id="nextButton">Next</button> -->
+      <!-- Start and setting button (image) -->
       <button class="button-start" id="actionButton">START</button>
       <div class="btn">
         <button class="button" id="restartButton">
@@ -46,7 +47,7 @@
         </button>
       </div>
 
-      <!-- Модальное окно настроек -->
+      <!-- Settings (hidden) -->
       <div id="settingsModal" class="modal">
         <div class="modal-content">
           <span class="close">&times;</span>
@@ -56,7 +57,7 @@
               type="number"
               id="workDuration"
               name="workDuration"
-              value="5"
+              value="25"
             /><br /><br />
 
             <label for="chillDuration">Chill Duration (min):</label>
@@ -64,7 +65,7 @@
               type="number"
               id="chillDuration"
               name="chillDuration"
-              value="3"
+              value="5"
             /><br /><br />
 
             <label for="longChillDuration">Long Chill Duration (min):</label>
@@ -75,8 +76,15 @@
               value="10"
             /><br /><br />
 
-            <!-- <label for="progressColor">Progress Color:</label>
-              <input type="color" id="progressColor" name="progressColor" value="#F7958E"><br><br> -->
+            <label for="longChillFrequency">Long Chill Frequency:</label>
+            <input
+              type="number"
+              id="longChillFrequency"
+              name="longChillFrequency"
+              value="3"
+              min="1"
+              max="5"
+            /><br /><br />
 
             <input type="button" value="Apply" id="applySettings" />
           </form>

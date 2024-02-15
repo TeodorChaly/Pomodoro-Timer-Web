@@ -5,13 +5,14 @@ const nextButton = document.getElementById("nextButton");
 const stageDisplay = document.getElementById("stageDisplay");
 const cycleCountDisplay = document.getElementById("cycleCount");
 const restartButton = document.getElementById("restartButton");
-const soundAlertWork = new Audio("sounds/work.mp3");
-const soundAlertChill = new Audio("sounds/chill.mp3");
-const longChillFrequency = 3;
+const soundAlertChillLong = new Audio("sounds/to_long_chill_notification.mp3");
+const soundAlertWork = new Audio("sounds/to_work_notification.mp3");
+const soundAlertChill = new Audio("sounds/to_chill_notification.mp3");
+let longChillFrequency = 3;
 
 const durations = {
   Work: 1 * 5,
-  Chill: 1 * 3,
+  Chill: 1 * 5,
   "Long Chill": 1 * 10,
 };
 
@@ -30,7 +31,6 @@ let length = Math.PI * 2 * 100;
 progressBar.style.strokeDasharray = length;
 
 function addNewTaskForm() {
-  
   const form = document.createElement("div");
   form.classList.add("task-modal");
   const input = document.createElement("input");
@@ -100,8 +100,12 @@ function displayCompletionMessage(form, taskName, isCompleted) {
   form.appendChild(message);
 }
 
-// Инициализация первой формы задания при загрузке страницы
 document.addEventListener("DOMContentLoaded", function () {
+  stage = "Work";
+  remainingSeconds = durations[stage];
+  updateDisplay();
+  updateCircle(durations[stage] - remainingSeconds, durations[stage]);
+  updateCircleColor(stage);
   addNewTaskForm();
 });
 
@@ -125,17 +129,18 @@ function switchStage() {
     ) {
       stage = "Long Chill";
       chillStagesCompleted = 0;
+      playSound_long_chill();
     } else {
       stage = "Chill";
+      playSound_chill();
     }
-    playSound_work();
   } else {
     chillStagesCompleted++;
     if (stage === "Chill" || stage === "Long Chill") {
+      playSound_work();
       cycleCount++;
     }
     stage = "Work";
-    playSound_chill();
   }
   remainingSeconds = durations[stage];
   updateDisplay();
@@ -199,7 +204,7 @@ function toggleTimer() {
 function pauseTimer() {
   clearInterval(timerInterval);
   timerInterval = null;
-  actionButton.textContent = "Start";
+  actionButton.textContent = "Continue";
   isTimerRunning = false;
 }
 
@@ -207,12 +212,16 @@ function restartCurrentSession() {
   clearInterval(timerInterval);
   timerInterval = null;
   isTimerRunning = false;
-  actionButton.textContent = "Start";
+  actionButton.textContent = "Continue";
 
   remainingSeconds = durations[stage];
 
   updateTimerDisplay();
   updateCircle(durations[stage] - remainingSeconds, durations[stage]);
+}
+
+function playSound_long_chill() {
+  soundAlertChillLong.play();
 }
 
 function playSound_work() {
@@ -288,22 +297,29 @@ applySettingsButton.onclick = function () {
     parseInt(document.getElementById("chillDuration").value, 10) * 60;
   const longChillDurationInput =
     parseInt(document.getElementById("longChillDuration").value, 10) * 60;
+  const longChillFrequencyInput = parseInt(
+    document.getElementById("longChillFrequency").value,
+    10,
+  );
 
   if (
     workDurationInput > 0 &&
     chillDurationInput > 0 &&
-    longChillDurationInput > 0
+    longChillDurationInput > 0 &&
+    longChillFrequencyInput >= 1 &&
+    longChillFrequencyInput <= 5
   ) {
     durations["Work"] = workDurationInput;
     durations["Chill"] = chillDurationInput;
     durations["Long Chill"] = longChillDurationInput;
+    longChillFrequency = longChillFrequencyInput;
 
     remainingSeconds = durations[stage];
     updateTimerDisplay();
     updateCircle(durations[stage] - remainingSeconds, durations[stage]);
     settingsModal.style.display = "none";
   } else {
-    alert("Please enter positive numbers greater than zero for all durations.");
+    alert("Please ensure all values are within the allowed ranges.");
   }
 };
 
