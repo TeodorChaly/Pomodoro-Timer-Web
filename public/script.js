@@ -331,7 +331,7 @@ function updateDisplay() {
   switch (stage) {
     case "Work":
       displayText = "Time to Work!";
-      textColor = "#6B70B0";
+      textColor = "#d44848";
       break;
     case "Chill":
       displayText = "Chill Out!";
@@ -348,7 +348,7 @@ function updateDisplay() {
 
   stageDisplay.textContent = displayText;
   stageDisplay.style.color = textColor;
-  cycleCountDisplay.textContent = `Cycles: ${cycleCount}`;
+  cycleCountDisplay.textContent = `Pomodoro cycles: ${cycleCount}`;
   updateTimerDisplay();
   remainingSeconds = durations[stage];
 }
