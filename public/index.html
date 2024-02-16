@@ -13,26 +13,28 @@
       <h1 class="main-header">Pomodoro Timer:</h1>
       <h1 class="head_title" id="stageDisplay">Time to Work!</h1>
       <h2 class="lapse" id="cycleCount">Cycles: 0</h2>
-      <div class="timer" id="timer">05:00</div>
 
       <!-- Timer circle area -->
-      <div class="circle">
-        <svg
-          class="img-cicle"
-          width="250"
-          viewBox="0 0 220 220"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <g transform="translate(110,110)">
-            <circle r="100" class="e-c-base" />
-            <g transform="rotate(-90)">
-              <circle r="100" class="e-c-progress" />
-              <g id="e-pointer">
-                <circle cx="100" cy="0" r="8" class="e-c-pointer" />
+      <div class="circle-timer-container">
+        <div class="circle">
+          <svg
+            class="img-cicle"
+            width="250"
+            viewBox="0 0 220 220"
+            xmlns="http://www.w3.org/2000/svg">
+            <g transform="translate(110,110)">
+              <circle r="100" class="e-c-base" />
+              <g transform="rotate(-90)">
+                <circle r="100" class="e-c-progress" />
+                <g id="e-pointer">
+                  <circle cx="100" cy="0" r="8" class="e-c-pointer" />
+                </g>
               </g>
             </g>
-          </g>
-        </svg>
+          </svg>
+        </div>
+      <div class="timer" id="timer">05:00</div>
+
       </div>
 
       <!-- Start and setting button (image) -->

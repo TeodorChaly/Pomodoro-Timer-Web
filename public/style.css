@@ -9,11 +9,21 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh; /* Set minimum height to 100% of the viewport height */
+  min-height: 100vh; 
 }
+.circle-timer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 420px; 
+  height: 420px; /* Высота должна соответствовать размеру вашего круга */
+}
+
 .main-header{
+   font-family: 'Inter';
    font-size: 30px;
-margin:0;
+   margin:0;
 }
 .container {
   display: flex;
@@ -21,7 +31,7 @@ margin:0;
   align-items: center;
   justify-content: center;
   margin: 0;
-  position: relative; /* Добавлено */
+  position: relative; 
 }
 
 .modal {
@@ -39,14 +49,12 @@ label {
    color: black;
 }
 #timer {
-   font-size: 110px;
-   margin: 0;
-   position: absolute;
-   top: 42.5%;
-
-   left: 50%;
-   transform: translate(-50%, -50%);
-   z-index: 1;
+  font-family: 'Inter';
+  position: absolute;
+  font-size: 100px;
+  color: white;
+  text-align: center;
+  width: 100%; /* Ширина таймера равна ширине контейнера */
 }
 
 .button {
@@ -55,11 +63,11 @@ label {
    padding: 10px 12px;
    border: none;
    color: white;
-  /* You can set the text color as needed */
    box-shadow: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
    margin-bottom: 20px;
 }
 .button-start{
+   font-family: 'Inter'
    width: 120px;
    height: 40px;
    background-color: #686A85;
@@ -97,23 +105,25 @@ label {
 .e-c-progress {
    fill: none;
    stroke: #686a85;
-   stroke-width: 5.5px;
+   stroke-width: 5px;
    transition: stroke-dashoffset 0.7s;
 }
 .e-c-pointer {
    fill: #d44848;
-   stroke: #d44848;
+
    stroke-width: 3px;
 }
 #e-pointer {
    transition: transform 0.7s;
 }
 .head_title {
-   font-size: 45px;
-   color: rgb(107, 112, 176);
-   margin: 0;
+  font-family: 'Inter'
+  font-size: 45px;
+  color: rgb(107, 112, 176);
+  margin: 0;
 }
 .lapse{
+  font-family: 'Inter'
    font-size: 34px;
    margin: 0;
 }
@@ -225,7 +235,7 @@ input[type="number"] {
 }
 
 #applySettings {
-  background-color: #4caf50;
+  background-color: #686A85;
   color: white; 
   padding: 10px 15px;
   border: none;
@@ -234,89 +244,84 @@ input[type="number"] {
   transition: background-color 0.3s ease; 
 }
 #applySettings:hover:not(:disabled) {
-  background-color: #45a049; 
+  background-color: #686a82; 
 }
 .task-modal {
-   color:#0056b3;
-   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-   padding: 20px;
-   border-radius: 10px;
-   display: flex;
-   justify-content: center;
-  /* Horizontal alignment */
-   align-items: center;
-}
-.task-modal-input {
-   width: 100%;
-   padding: 20px;
-   box-sizing: border-box;
-   border: 1px solid #ccc;
-   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
-}
-.task-modal-button {
-   padding: 10px 20px;
-   border-radius: 5px;
-   background-color: #4CAF50;
-   color: white;
-   border: 10px;
-   cursor: pointer;
-   font-size: 16px;
+  color: white;
+
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center; 
+
 }
 
-.task-modal-div {
-  color: black;
+.task-modal-input {
+  width: 100%;
+  padding: 15px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 10px;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+}
+
+
+
+
+.task-modal-div {
+  color: white;
+
   padding: 10px;
   border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #ffffff;
 
 }
 
 .task-modal-div-complite{
-  color: black;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+  color: white;
+
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #ffffff;
+  background-color: #686A85;
 }
 
 
 .task-modal-button {
   padding: 10px 20px;
   border-radius: 5px;
-  background-color: #4CAF50;
+  background-color: #686A85;
   color: white;
   border: 10px;
   cursor: pointer;
   font-size: 16px;
-  margin-left: 10px; /* Add spacing between buttons */
+  margin-top: 10px; 
+  margin:5px
+
 }
 
-/* Styles for the dynamically added task name display */
 .task-name-display {
   color: white;
   font-size: 18px;
-  margin-top: 10px; /* Add spacing between task elements */
+  margin-top: 10px;
 }
-
+.heading{
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
 
 .img-cicle{
   width: 420px;
   height: 420px;
 }
-@media only screen and (max-height: 700px) {
-   .img-cicle{
-       width: 350px;
-       height: 350px;
-  }
-}
+
 @media only screen and (max-width: 500px) {
    .img-cicle{
        width: 350px;
@@ -325,30 +330,28 @@ input[type="number"] {
 
 
    .head_title{
+     font-family: 'Inter'
        font-size: 28px;
   }
    .main-header{
        font-size: 24px;
   }
    .lapse{
-       font-size: 24px;
-  }
-   #timer{
-      top: 39%;
+     font-family: 'Inter'
 
-      font-size:85px;  
+       font-size: 24px;
   }
 
   .task-modal-div {
-      padding: 15px; /* Adjust padding for smaller screens */
+      padding: 5px; 
   }
 
   .task-modal-button {
-      font-size: 14px; /* Adjust font size for smaller screens */
-      padding: 8px 15px; /* Adjust padding for smaller screens */
+      font-size: 14px;
+      padding: 8px 15px;
   }
 
   .task-name-display {
-      font-size: 16px; /* Adjust font size for smaller screens */
+      font-size: 16px;
   }
 }

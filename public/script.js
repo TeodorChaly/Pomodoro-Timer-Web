@@ -1,4 +1,3 @@
-let timerInterval;
 const timerDisplay = document.getElementById("timer");
 const actionButton = document.getElementById("actionButton");
 const nextButton = document.getElementById("nextButton");
@@ -8,48 +7,52 @@ const restartButton = document.getElementById("restartButton");
 const soundAlertChillLong = new Audio("sounds/to_long_chill_notification.mp3");
 const soundAlertWork = new Audio("sounds/to_work_notification.mp3");
 const soundAlertChill = new Audio("sounds/to_chill_notification.mp3");
-let longChillFrequency = 3;
-
 const durations = {
   Work: 1 * 5,
   Chill: 1 * 5,
   "Long Chill": 1 * 10,
 };
 
+let timerInterval;
+let longChillFrequency = 3;
 let remainingSeconds = durations["Work"];
 let isTimerRunning = false;
 let stage = "Work";
 let cycleCount = 0;
 let workStagesCompleted = 0;
 let chillStagesCompleted = 0;
-let totalChillStages = 0;
-
+let length = Math.PI * 2 * 100;
 let progressBar = document.querySelector(".e-c-progress");
 let pointer = document.getElementById("e-pointer");
-let length = Math.PI * 2 * 100;
 
 progressBar.style.strokeDasharray = length;
 
 function addNewTaskForm() {
   const form = document.createElement("div");
   form.classList.add("task-modal");
+  const btns = document.createElement("div");
+  btns.classList.add("bnts-modal");
+
+  const heading = document.createElement("h2");
+  heading.classList.add("heading");
+  heading.textContent = "Task";
+
   const input = document.createElement("input");
   input.classList.add("task-modal-input");
   const startButton = document.createElement("button");
   startButton.classList.add("task-modal-button");
-  // Настраиваем элементы
+
   input.setAttribute("type", "text");
   input.setAttribute("placeholder", "Введите название задания");
   startButton.textContent = "Начать задание";
-  startButton.disabled = true; // кнопка неактивна пока поле ввода пустое
+  startButton.disabled = true;
 
-  // Добавляем элементы в форму
+  // Add elements to form
+  form.appendChild(heading);
   form.appendChild(input);
   form.appendChild(startButton);
 
   document.querySelector(".container").appendChild(form);
-
-  // Обработчик событий для поля ввода
   input.addEventListener("input", function () {
     startButton.disabled = !input.value.trim();
   });
@@ -57,7 +60,8 @@ function addNewTaskForm() {
   // Обработчик событий для кнопки начала задания
   startButton.addEventListener("click", function () {
     const taskNameDisplay = document.createElement("div");
-    taskNameDisplay.textContent = `Task: ${input.value.trim()}`;
+    taskNameDisplay.classList.add("task-modal-div");
+    taskNameDisplay.textContent = `${input.value.trim()}`;
     // Добавляем элемент с названием задачи в форму
     form.appendChild(taskNameDisplay);
     // Создаем кнопки завершения задания
@@ -66,12 +70,13 @@ function addNewTaskForm() {
     const notCompleteButton = document.createElement("button");
     notCompleteButton.classList.add("task-modal-button");
     // Настраиваем кнопки
-    completeButton.textContent = "complete";
-    notCompleteButton.textContent = "not complete";
+    completeButton.textContent = "Complete";
+    notCompleteButton.textContent = "Not complete";
 
     // Добавляем кнопки на страницу
-    form.appendChild(completeButton);
-    form.appendChild(notCompleteButton);
+    btns.appendChild(completeButton);
+    btns.appendChild(notCompleteButton);
+    form.appendChild(btns);
 
     // Скрываем ввод и кнопку начала задания
     input.style.display = "none";
@@ -88,7 +93,6 @@ function addNewTaskForm() {
     });
   });
 }
-
 // Функция для отображения сообщения о завершении задания
 function displayCompletionMessage(form, taskName, isCompleted) {
   const message = document.createElement("div");
@@ -164,7 +168,7 @@ function updateCircleColor(stage) {
       color = "#3498db"; // Синий
       break;
     case "Long Chill":
-      color = "#2c3e50"; // Темно-синий
+      color = "#6B70B0"; // Темно-синий
       break;
     default:
       color = "#d44848"; // Значение по умолчанию
@@ -259,6 +263,9 @@ document
 document
   .getElementById("longChillDuration")
   .addEventListener("input", validateInput);
+document
+  .getElementById("longChillFrequency")
+  .addEventListener("input", validateInput);
 
 function validateInput() {
   const workDuration = parseInt(
@@ -273,6 +280,10 @@ function validateInput() {
     document.getElementById("longChillDuration").value,
     10,
   );
+  const longChillFrequencyInput = parseInt(
+    document.getElementById("longChillFrequency").value,
+    10,
+  ); // Добавлено
 
   if (
     workDuration > 0 &&
@@ -280,15 +291,15 @@ function validateInput() {
     longChillDuration > 0 &&
     workDuration < 1000 &&
     chillDuration < 1000 &&
-    longChillDuration < 1000
+    longChillDuration < 1000 &&
+    longChillFrequencyInput >= 1 && // Добавлено
+    longChillFrequencyInput <= 5 // Добавлено
   ) {
     document.getElementById("applySettings").disabled = false;
   } else {
     document.getElementById("applySettings").disabled = true;
   }
 }
-
-validateInput();
 
 applySettingsButton.onclick = function () {
   const workDurationInput =
@@ -302,25 +313,15 @@ applySettingsButton.onclick = function () {
     10,
   );
 
-  if (
-    workDurationInput > 0 &&
-    chillDurationInput > 0 &&
-    longChillDurationInput > 0 &&
-    longChillFrequencyInput >= 1 &&
-    longChillFrequencyInput <= 5
-  ) {
-    durations["Work"] = workDurationInput;
-    durations["Chill"] = chillDurationInput;
-    durations["Long Chill"] = longChillDurationInput;
-    longChillFrequency = longChillFrequencyInput;
+  durations["Work"] = workDurationInput;
+  durations["Chill"] = chillDurationInput;
+  durations["Long Chill"] = longChillDurationInput;
+  longChillFrequency = longChillFrequencyInput;
 
-    remainingSeconds = durations[stage];
-    updateTimerDisplay();
-    updateCircle(durations[stage] - remainingSeconds, durations[stage]);
-    settingsModal.style.display = "none";
-  } else {
-    alert("Please ensure all values are within the allowed ranges.");
-  }
+  remainingSeconds = durations[stage];
+  updateTimerDisplay();
+  updateCircle(durations[stage] - remainingSeconds, durations[stage]);
+  settingsModal.style.display = "none";
 };
 
 function updateDisplay() {
