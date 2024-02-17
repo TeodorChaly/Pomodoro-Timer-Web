@@ -1,3 +1,4 @@
+let timerInterval;
 const timerDisplay = document.getElementById("timer");
 const actionButton = document.getElementById("actionButton");
 const nextButton = document.getElementById("nextButton");
@@ -7,102 +8,104 @@ const restartButton = document.getElementById("restartButton");
 const soundAlertChillLong = new Audio("sounds/to_long_chill_notification.mp3");
 const soundAlertWork = new Audio("sounds/to_work_notification.mp3");
 const soundAlertChill = new Audio("sounds/to_chill_notification.mp3");
+let longChillFrequency = 3;
+
 const durations = {
   Work: 1 * 5,
   Chill: 1 * 5,
   "Long Chill": 1 * 10,
 };
 
-let timerInterval;
-let longChillFrequency = 3;
 let remainingSeconds = durations["Work"];
 let isTimerRunning = false;
 let stage = "Work";
 let cycleCount = 0;
 let workStagesCompleted = 0;
 let chillStagesCompleted = 0;
-let length = Math.PI * 2 * 100;
+let totalChillStages = 0;
+
 let progressBar = document.querySelector(".e-c-progress");
 let pointer = document.getElementById("e-pointer");
+let length = Math.PI * 2 * 100;
 
 progressBar.style.strokeDasharray = length;
 
-function addNewTaskForm() {
-  const form = document.createElement("div");
-  form.classList.add("task-modal");
-  const btns = document.createElement("div");
-  btns.classList.add("bnts-modal");
+// function addNewTaskForm() {
+//   const form = document.createElement("div");
+//   form.classList.add("task-modal");
+//   const btns = document.createElement("div");
+//   btns.classList.add("bnts-modal");
 
-  const heading = document.createElement("h2");
-  heading.classList.add("heading");
-  heading.textContent = "Task";
+//   const heading = document.createElement("h2");
+//   heading.classList.add("heading");
+//   heading.textContent = "Task";
 
-  const input = document.createElement("input");
-  input.classList.add("task-modal-input");
-  const startButton = document.createElement("button");
-  startButton.classList.add("task-modal-button");
+//   const input = document.createElement("input");
+//   input.classList.add("task-modal-input");
+//   const startButton = document.createElement("button");
+//   startButton.classList.add("task-modal-button");
 
-  input.setAttribute("type", "text");
-  input.setAttribute("placeholder", "Введите название задания");
-  startButton.textContent = "Начать задание";
-  startButton.disabled = true;
+//   input.setAttribute("type", "text");
+//   input.setAttribute("placeholder", "Введите название задания");
+//   startButton.textContent = "Начать задание";
+//   startButton.disabled = true;
 
-  // Add elements to form
-  form.appendChild(heading);
-  form.appendChild(input);
-  form.appendChild(startButton);
+//   // Add elements to form
+//   form.appendChild(heading);
+//   form.appendChild(input);
+//   form.appendChild(startButton);
 
-  document.querySelector(".container").appendChild(form);
-  input.addEventListener("input", function () {
-    startButton.disabled = !input.value.trim();
-  });
+//   document.querySelector(".container").appendChild(form);
+//   input.addEventListener("input", function () {
+//     startButton.disabled = !input.value.trim();
+//   });
 
-  // Обработчик событий для кнопки начала задания
-  startButton.addEventListener("click", function () {
-    const taskNameDisplay = document.createElement("div");
-    taskNameDisplay.classList.add("task-modal-div");
-    taskNameDisplay.textContent = `${input.value.trim()}`;
-    // Добавляем элемент с названием задачи в форму
-    form.appendChild(taskNameDisplay);
-    // Создаем кнопки завершения задания
-    const completeButton = document.createElement("button");
-    completeButton.classList.add("task-modal-button");
-    const notCompleteButton = document.createElement("button");
-    notCompleteButton.classList.add("task-modal-button");
-    // Настраиваем кнопки
-    completeButton.textContent = "Complete";
-    notCompleteButton.textContent = "Not complete";
+//   // Обработчик событий для кнопки начала задания
+//   startButton.addEventListener("click", function () {
+//     const taskNameDisplay = document.createElement("div");
+//     taskNameDisplay.classList.add("task-modal-div");
+//     taskNameDisplay.textContent = `${input.value.trim()}`;
+//     // Добавляем элемент с названием задачи в форму
+//     form.appendChild(taskNameDisplay);
+//     // Создаем кнопки завершения задания
+//     const completeButton = document.createElement("button");
+//     completeButton.classList.add("task-modal-button");
+//     const notCompleteButton = document.createElement("button");
+//     notCompleteButton.classList.add("task-modal-button");
+//     // Настраиваем кнопки
+//     completeButton.textContent = "complete";
+//     notCompleteButton.textContent = "not complete";
 
-    // Добавляем кнопки на страницу
-    btns.appendChild(completeButton);
-    btns.appendChild(notCompleteButton);
-    form.appendChild(btns);
+//     // Добавляем кнопки на страницу
+//     btns.appendChild(completeButton);
+//     btns.appendChild(notCompleteButton);
+//     form.appendChild(btns);
 
-    // Скрываем ввод и кнопку начала задания
-    input.style.display = "none";
-    startButton.style.display = "none";
+//     // Скрываем ввод и кнопку начала задания
+//     input.style.display = "none";
+//     startButton.style.display = "none";
 
-    // Обработчик для кнопки "complete"
-    completeButton.addEventListener("click", function () {
-      displayCompletionMessage(form, input.value, true);
-    });
+//     // Обработчик для кнопки "complete"
+//     completeButton.addEventListener("click", function () {
+//       displayCompletionMessage(form, input.value, true);
+//     });
 
-    // Обработчик для кнопки "not complete"
-    notCompleteButton.addEventListener("click", function () {
-      displayCompletionMessage(form, input.value, false);
-    });
-  });
-}
-// Функция для отображения сообщения о завершении задания
-function displayCompletionMessage(form, taskName, isCompleted) {
-  const message = document.createElement("div");
-  message.textContent = `${taskName} was ${
-    isCompleted ? "completed" : "not completed"
-  }.`;
-  // Очищаем форму и отображаем сообщение
-  form.innerHTML = "";
-  form.appendChild(message);
-}
+//     // Обработчик для кнопки "not complete"
+//     notCompleteButton.addEventListener("click", function () {
+//       displayCompletionMessage(form, input.value, false);
+//     });
+//   });
+// }
+// // Функция для отображения сообщения о завершении задания
+// function displayCompletionMessage(form, taskName, isCompleted) {
+//   const message = document.createElement("div");
+//   message.textContent = `${taskName} was ${
+//     isCompleted ? "completed" : "not completed"
+//   }.`;
+//   // Очищаем форму и отображаем сообщение
+//   form.innerHTML = "";
+//   form.appendChild(message);
+// }
 
 document.addEventListener("DOMContentLoaded", function () {
   stage = "Work";
@@ -110,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
   updateDisplay();
   updateCircle(durations[stage] - remainingSeconds, durations[stage]);
   updateCircleColor(stage);
-  addNewTaskForm();
+  // addNewTaskForm();
 });
 
 function updateCircle(value, timePercent) {
@@ -155,27 +158,62 @@ function switchStage() {
   updateCircleColor(stage);
 }
 
+function updateDisplay() {
+  let displayText;
+  let textColor;
+
+  switch (stage) {
+    case "Work":
+      displayText = "Time to Work!";
+      textColor = "#FF5733";
+      break;
+    case "Chill":
+      displayText = "Chill Out!";
+      textColor = "#3498db";
+      break;
+    case "Long Chill":
+      displayText = "Long Break!";
+      textColor = "#2ecc71";
+      break;
+    default:
+      displayText = stage;
+      textColor = "#d44848";
+  }
+
+  stageDisplay.textContent = displayText;
+  stageDisplay.style.color = textColor;
+  cycleCountDisplay.textContent = `Pomodoro cycles: ${cycleCount}`;
+  updateTimerDisplay();
+  remainingSeconds = durations[stage];
+}
+
 function updateCircleColor(stage) {
   const progressCirclLine = document.querySelector(".e-c-base");
   const progressCircle = document.querySelector(".e-c-pointer");
+  const button = document.querySelector(".button-start");
+  const restartButton = document.getElementById("restartButton");
+  const settingsButton = document.getElementById("settingsButton");
 
   let color;
   switch (stage) {
     case "Work":
-      color = "#d44848"; // Красный
+      color = "#FF5733"; // Красный
       break;
     case "Chill":
       color = "#3498db"; // Синий
       break;
     case "Long Chill":
-      color = "#6B70B0"; // Темно-синий
+      color = "#2ecc71"; // Темно-синий
       break;
     default:
-      color = "#d44848"; // Значение по умолчанию
+      color = "#900C3F"; // Значение по умолчанию
   }
   progressCirclLine.style.stroke = color;
   progressCircle.style.fill = color;
   progressCircle.style.stroke = color;
+  button.style.background = color;
+  restartButton.style.background = color;
+  settingsButton.style.background = color;
 }
 
 function startTimer() {
@@ -323,35 +361,6 @@ applySettingsButton.onclick = function () {
   updateCircle(durations[stage] - remainingSeconds, durations[stage]);
   settingsModal.style.display = "none";
 };
-
-function updateDisplay() {
-  let displayText;
-  let textColor;
-
-  switch (stage) {
-    case "Work":
-      displayText = "Time to Work!";
-      textColor = "#d44848";
-      break;
-    case "Chill":
-      displayText = "Chill Out!";
-      textColor = "#3498db";
-      break;
-    case "Long Chill":
-      displayText = "Long Break!";
-      textColor = "#2ecc71";
-      break;
-    default:
-      displayText = stage;
-      textColor = "#d44848";
-  }
-
-  stageDisplay.textContent = displayText;
-  stageDisplay.style.color = textColor;
-  cycleCountDisplay.textContent = `Pomodoro cycles: ${cycleCount}`;
-  updateTimerDisplay();
-  remainingSeconds = durations[stage];
-}
 
 function initializeTimer() {
   updateDisplay();

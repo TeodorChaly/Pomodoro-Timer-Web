@@ -16,13 +16,13 @@ body {
   justify-content: center;
   align-items: center;
   position: relative;
-  width: 350px; 
-  height: 470px; /* Высота должна соответствовать размеру вашего круга */
+  width: 250px; 
+  height: 270px; 
 }
 
 .img-cicle{
-  width: 420px;
-  height: 420px;
+  width: 250px;
+  height: 270px;
 }
 
 .main-header{
@@ -56,14 +56,14 @@ label {
 #timer {
   font-family: 'Inter';
   position: absolute;
-  font-size: 110px;
+  font-size: 64px;
   color: white;
   text-align: center;
   width: 100%; /* Ширина таймера равна ширине контейнера */
 }
 
 .button {
-   background-color: #6B70B0;
+   background-color: #FF5733;
    border-radius: 100%;
    padding: 10px 12px;
    border: none;
@@ -72,10 +72,10 @@ label {
    margin-bottom: 20px;
 }
 .button-start{
-   font-family: 'Inter'
+   font-family: 'Inter';
    width: 120px;
    height: 40px;
-   background-color: #6B70B0;
+   background-color: #FF5733;
    color: white;
    border: none;
    outline: none;
@@ -114,7 +114,7 @@ label {
    transition: stroke-dashoffset 0.7s;
 }
 .e-c-pointer {
-   fill: #d44848;
+   fill: #900C3F;
 
    stroke-width: 3px;
 }
@@ -313,25 +313,25 @@ input[type="number"] {
 }
 
 .circle{
-  font-size: 44px;
+  font-size: 24px;
   margin:0;
 }
 
 .head_title{
-  font-size:72px;
+  font-size:35px;
   margin:0;
 }
 
 
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 300px) {
   .circle-timer-container{
-    width: 350px; 
-    height: 370px;
+    width: 250px; 
+    height: 270px;
   }
    .img-cicle{
-       width: 350px;
-       height: 350px;
+       width: 250px;
+       height: 250px;
   }
 
    .main-header{
@@ -342,9 +342,9 @@ input[type="number"] {
     font-size:34px;
     margin:0;
   }
-  
+
    .circle{
-     font-family: 'Inter'
+     font-family: 'Inter';
      margin:0;
        font-size: 24px;
   }
@@ -362,6 +362,6 @@ input[type="number"] {
       font-size: 16px;
   }
   #timer {
-     font-size: 85px; 
+     font-size: 64px; 
   }
 }
