@@ -61,6 +61,9 @@
             alt=""
           />
         </button>
+        <button class="button" id="musicToggle">
+          <img style="width: 28px; height: auto" src="./img/music.svg" alt="" />
+        </button>
       </div>
 
       <!-- Settings (hidden) -->
@@ -101,6 +104,16 @@
               min="1"
               max="5"
             /><br /><br />
+
+            <label for="volumeControl">Music volume:</label>
+            <input
+              type="range"
+              id="volumeControl"
+              min="0"
+              max="1"
+              step="0.01"
+              value="0.5"
+            />
 
             <input type="button" value="Apply" id="applySettings" />
           </form>

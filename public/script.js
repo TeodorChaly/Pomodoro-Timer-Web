@@ -9,6 +9,7 @@ const soundAlertChillLong = new Audio("sounds/to_long_chill_notification.mp3");
 const soundAlertWork = new Audio("sounds/to_work_notification.mp3");
 const soundAlertChill = new Audio("sounds/to_chill_notification.mp3");
 let longChillFrequency = 3;
+let volume = 0.5;
 
 const durations = {
   Work: 1 * 5,
@@ -29,6 +30,28 @@ let pointer = document.getElementById("e-pointer");
 let length = Math.PI * 2 * 100;
 
 progressBar.style.strokeDasharray = length;
+
+let currentColor = "#FF5733";
+
+let musicPlaying = false;
+const audio = new Audio("./sounds/music.mp3");
+audio.volume = volume;
+audio.loop = true;
+
+document.getElementById("musicToggle").addEventListener("click", function () {
+  if (musicPlaying) {
+    audio.pause();
+    musicPlaying = false;
+  } else {
+    audio.play();
+    musicPlaying = true;
+  }
+});
+
+const volumeControl = document.getElementById("volumeControl");
+volumeControl.addEventListener("input", function () {
+  audio.volume = volumeControl.value;
+});
 
 // function addNewTaskForm() {
 //   const form = document.createElement("div");
@@ -159,6 +182,12 @@ function switchStage() {
 }
 
 function updateDisplay() {
+  cangeTitle();
+  updateTimerDisplay();
+  remainingSeconds = durations[stage];
+}
+
+function cangeTitle() {
   let displayText;
   let textColor;
 
@@ -183,18 +212,11 @@ function updateDisplay() {
   stageDisplay.textContent = displayText;
   stageDisplay.style.color = textColor;
   cycleCountDisplay.textContent = `Pomodoro cycles: ${cycleCount}`;
-  updateTimerDisplay();
-  remainingSeconds = durations[stage];
 }
 
 function updateCircleColor(stage) {
-  const progressCirclLine = document.querySelector(".e-c-base");
-  const progressCircle = document.querySelector(".e-c-pointer");
-  const button = document.querySelector(".button-start");
-  const restartButton = document.getElementById("restartButton");
-  const settingsButton = document.getElementById("settingsButton");
-
   let color;
+
   switch (stage) {
     case "Work":
       color = "#FF5733"; // Красный
@@ -208,19 +230,25 @@ function updateCircleColor(stage) {
     default:
       color = "#900C3F"; // Значение по умолчанию
   }
+  currentColor = color;
+  changeColors(color);
+}
+
+function changeColors(color) {
+  const progressCirclLine = document.querySelector(".e-c-base");
+  const progressCircle = document.querySelector(".e-c-pointer");
+  const button = document.querySelector(".button-start");
+  const restartButton = document.getElementById("restartButton");
+  const settingsButton = document.getElementById("settingsButton");
+  const musicToggle = document.getElementById("musicToggle");
+  
   progressCirclLine.style.stroke = color;
   progressCircle.style.fill = color;
   progressCircle.style.stroke = color;
   button.style.background = color;
   restartButton.style.background = color;
   settingsButton.style.background = color;
-}
-
-function startTimer() {
-  clearInterval(timerInterval);
-  timerInterval = setInterval(decrementTimer, 1000);
-  actionButton.textContent = "Pause";
-  isTimerRunning = true;
+  musicToggle.style.background = color;
 }
 
 function decrementTimer() {
@@ -243,7 +271,20 @@ function toggleTimer() {
   }
 }
 
+function startTimer() {
+  changeColors(currentColor);
+  cangeTitle();
+  clearInterval(timerInterval);
+  timerInterval = setInterval(decrementTimer, 1000);
+  actionButton.textContent = "Pause";
+  isTimerRunning = true;
+}
+
 function pauseTimer() {
+  changeColors("#808080");
+  stageDisplay.textContent = "Time Paused!";
+  stageDisplay.style.color = "#808080";
+  cycleCountDisplay.textContent = `Pomodoro cycles: ${cycleCount}`;
   clearInterval(timerInterval);
   timerInterval = null;
   actionButton.textContent = "Continue";
