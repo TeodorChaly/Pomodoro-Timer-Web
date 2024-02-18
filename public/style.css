@@ -59,7 +59,7 @@ label {
   font-size: 64px;
   color: white;
   text-align: center;
-  width: 100%; /* Ширина таймера равна ширине контейнера */
+  width: 100%; 
 }
 
 .button {
