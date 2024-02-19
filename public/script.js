@@ -22,7 +22,7 @@ const audio = new Audio("./sounds/music.mp3");
 const durations = {
   Work: 25 * 60,
   Chill: 5 * 60,
-  "Long Chill": 5 * 60,
+  "Long Chill": 15 * 60,
 };
 
 // Deafult app setting
@@ -85,11 +85,11 @@ function cangeTitle() {
       textColor = "#FF5733";
       break;
     case "Chill":
-      displayText = "Chill Out!";
+      displayText = "Take a Short Break!";
       textColor = "#3498db";
       break;
     case "Long Chill":
-      displayText = "Long Break!";
+      displayText = "Take a Long Break!";
       textColor = "#2ecc71";
       break;
     default:

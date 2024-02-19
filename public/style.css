@@ -19,12 +19,10 @@ body {
   width: 250px; 
   height: 270px; 
 }
-
 .img-cicle{
   width: 250px;
   height: 270px;
 }
-
 .main-header{
    font-family: 'Inter';
    font-size: 50px;
@@ -38,7 +36,6 @@ body {
   margin: 0;
   position: relative; 
 }
-
 .modal {
    display: none;
    position: fixed;
@@ -263,9 +260,6 @@ input[type="number"] {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
 }
 
-
-
-
 .task-modal-div {
   color: white;
 
@@ -321,8 +315,6 @@ input[type="number"] {
   font-size:35px;
   margin:0;
 }
-
-
 
 @media only screen and (max-width: 300px) {
   .circle-timer-container{
