@@ -15,7 +15,6 @@ This project is a Pomodoro Timer web application designed to help users manage t
 - HTML5
 - CSS3
 - JavaScript
-- SVG for Timer Visualization
 
 ## Setup and Usage
 
