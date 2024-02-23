@@ -30,4 +30,4 @@ To use the Pomodoro Timer, follow these simple steps:
    cd pomodoro-timer
 4. **Open index.html in a Web Browser**
 
-Open the index.html file in your preferred web browser to start using the Pomodoro Timer.
+   Open the index.html file in your preferred web browser to start using the Pomodoro Timer.
