@@ -1,4 +1,7 @@
 # Pomodoro Timer by iTeo
+<p align="center">
+  <img src="https://github.com/TeodorChaly/Pomodoro-Timer-Web/assets/94479140/22ce8147-6919-4b18-8fbc-c58c798032d5" alt="Timer Image">
+</p>
 
 This project is a Pomodoro Timer web application designed to help users manage their time more effectively using the Pomodoro Technique. The application allows users to work for focused intervals, known as "Pomodoros," followed by short breaks. This method boosts productivity by enforcing regular breaks to prevent burnout.
 
